@@ -1,6 +1,7 @@
 {
   "require" : {
-    "slim/slim-skeleton": "^3.0"
+    "slim/slim-skeleton": "^3.0",
+    "robmorgan/phinx": "^0.5.3"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
