@@ -6,7 +6,7 @@ $db_url = getenv('DATABASE_URL');
 
 if (!empty($db_url))
 {
-    $dbopts = parse_url();
+    $dbopts = parse_url($db_url);
 
     $production = array(
         "adapter" => "pgsql",
