@@ -17,9 +17,9 @@ $app->post('/ripple', function (ServerRequestInterface $request, ResponseInterfa
     $ripple->latitude = $attributes['latitude'];
     $ripple->longitude = $attributes['longitude'];
     $ripple->description = $attributes['description'];
-    $ripple->image_path = $attributes['image_path'];
     $ripple->creation_time = date('Y-m-d H:i:s');
-    $ripple->end_time = $attributes['end_time'];
+    $ripple->end_time = date('Y-m-d H:i:s');
+    $ripple->image_path = "default";
     $ripple->user_id = 1;
     $ripple->save();
 
