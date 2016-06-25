@@ -8,6 +8,10 @@ $app->get('/ripple', function (ServerRequestInterface $request, ResponseInterfac
     return $response->withJson(Ripple::all());
 });
 
+$app->get('/ripple/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
+     return $response->withJson(Ripple::find($id));
+});
+
 $app->post('/ripple', function (ServerRequestInterface $request, ResponseInterface $response) {
 
     $attributes = $request->getParsedBody();
@@ -24,4 +28,12 @@ $app->post('/ripple', function (ServerRequestInterface $request, ResponseInterfa
     $ripple->save();
 
     return $response->withJson($ripple);
+});
+
+$app->delete('/ripple', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
+     Ripple::getQuery()->delete();
+});
+
+$app->delete('/ripple/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
+     Ripple::destroy($id);
 });
