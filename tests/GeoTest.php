@@ -1,5 +1,6 @@
 <?php
 
+use \Rippler\Models\Swipe;
 use \Rippler\Models\Ripple;
 
 class GeoTest extends ApiTest
@@ -13,6 +14,7 @@ class GeoTest extends ApiTest
     {
         parent::setUp();
 
+        Swipe::getQuery()->delete();
         Ripple::getQuery()->delete();
 
         $london_ripple = new Ripple();
@@ -36,13 +38,6 @@ class GeoTest extends ApiTest
         $oxford_ripple->end_time = '2016-05-25 00:00:00';
         $oxford_ripple->user_id = 1;
         $oxford_ripple->save();
-    }
-
-    public function getRipples($latitude, $longitude, $radius)
-    {
-        $response = $this->client->get("rippler/ripple/$latitude/$longitude/$radius");
-
-        return json_decode($response->getBody());
     }
 
     public function testListResponseBoth()
@@ -69,7 +64,7 @@ class GeoTest extends ApiTest
         $this->assertEquals(0, count($ripples));
     }
 
-    public function testListResponseJustNoneFromSouthampton()
+    public function testListResponseNoneFromSouthampton()
     {
         $ripples = $this->getRipples(self::southamptonLatitude, self::southamptonLongitude, 200);
 

@@ -20,7 +20,11 @@ $app->get('/ripple/{latitude}/{longitude}/{radius}', function (ServerRequestInte
     $distance_calculator = new Vincenty();
     $user_location = new Coordinate($args['latitude'], $args['longitude']);
 
-    foreach (Ripple::all() as $ripple)
+    $unswiped_ripples = Ripple::whereDoesntHave('swipes', function ($query) {
+        $query->where('user_id', '=', 1);
+    })->get();
+
+    foreach ($unswiped_ripples as $ripple)
     {
         $ripple_location = new Coordinate($ripple->latitude, $ripple->longitude);
         $distance = $distance_calculator->getDistance($user_location, $ripple_location) / 1000;

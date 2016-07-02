@@ -14,4 +14,11 @@ abstract class ApiTest extends PHPUnit_Framework_TestCase
             'base_uri' => 'http://localhost/'
         ]);
     }
+
+    public function getRipples($latitude, $longitude, $radius)
+    {
+        $response = $this->client->get("rippler/ripple/$latitude/$longitude/$radius");
+
+        return json_decode($response->getBody());
+    }
 }
