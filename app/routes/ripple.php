@@ -10,6 +10,16 @@ $app->get('/ripple', function (ServerRequestInterface $request, ResponseInterfac
     return $response->withJson(Ripple::all());
 });
 
+$app->get('/ripple/match', function (ServerRequestInterface $request, ResponseInterface $response) {
+
+    $matched_ripples = Ripple::whereHas('swipes', function ($query) {
+        $query->where('user_id', '=', 1);
+        $query->where('like', '=', 1);
+    })->get();
+
+    return $response->withJson($matched_ripples);
+});
+
 $app->get('/ripple/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
      return $response->withJson(Ripple::find($id));
 });

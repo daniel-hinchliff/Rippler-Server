@@ -56,8 +56,10 @@ class SwipeTest extends ApiTest
     public function testNotGetUnswipedRipple()
     {
         $ripples = $this->getRipples(self::oxfordLatitude, self::oxfordLongitude, 100);
+        $matches = $this->getMatches();
 
         $this->assertEquals(1, count($ripples));
+        $this->assertEquals(0, count($matches));
     }
 
     public function testNotGetUnlikedRipple()
@@ -65,8 +67,10 @@ class SwipeTest extends ApiTest
         $this->swipeRipple($this->ripple_id, false);
 
         $ripples = $this->getRipples(self::oxfordLatitude, self::oxfordLongitude, 100);
+        $matches = $this->getMatches();
 
         $this->assertEquals(0, count($ripples));
+        $this->assertEquals(0, count($matches));
     }
 
     public function testNotGetLikedRipple()
@@ -74,7 +78,9 @@ class SwipeTest extends ApiTest
         $this->swipeRipple($this->ripple_id, true);
 
         $ripples = $this->getRipples(self::oxfordLatitude, self::oxfordLongitude, 100);
+        $matches = $this->getMatches();
 
         $this->assertEquals(0, count($ripples));
+        $this->assertEquals(1, count($matches));
     }
 }

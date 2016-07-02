@@ -21,4 +21,11 @@ abstract class ApiTest extends PHPUnit_Framework_TestCase
 
         return json_decode($response->getBody());
     }
+
+    public function getMatches()
+    {
+        $response = $this->client->get("rippler/ripple/match");
+
+        return json_decode($response->getBody());
+    }
 }
