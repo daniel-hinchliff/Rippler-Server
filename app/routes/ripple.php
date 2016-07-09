@@ -59,7 +59,6 @@ $app->post('/ripple', function (ServerRequestInterface $request, ResponseInterfa
     $ripple->description = $attributes['description'];
     $ripple->creation_time = date('Y-m-d H:i:s');
     $ripple->end_time = date('Y-m-d H:i:s');
-    $ripple->image_path = "default";
     $ripple->user_id = 1;
     $ripple->save();
 

@@ -22,7 +22,6 @@ class GeoTest extends ApiTest
         $london_ripple->latitude = 51.5085300;
         $london_ripple->longitude = -0.1257400;
         $london_ripple->description = 'London';
-        $london_ripple->image_path = 'dasdasd';
         $london_ripple->creation_time = '2016-05-25 00:00:00';
         $london_ripple->end_time = '2016-05-25 00:00:00';
         $london_ripple->user_id = 1;
@@ -33,7 +32,6 @@ class GeoTest extends ApiTest
         $oxford_ripple->latitude = 51.752022;
         $oxford_ripple->longitude = -1.257677;
         $oxford_ripple->description = 'Oxford';
-        $oxford_ripple->image_path = 'dasdasd';
         $oxford_ripple->creation_time = '2016-05-25 00:00:00';
         $oxford_ripple->end_time = '2016-05-25 00:00:00';
         $oxford_ripple->user_id = 1;

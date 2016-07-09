@@ -18,7 +18,6 @@ class RippleTest extends ApiTest
           'latitude' => '32',
           'longitude' => '32',
           'description' => 'ewfef',
-          'image_path' => 'dasdasd',
           'end_time' => '2016-05-25 00:00:00',
         );
 
