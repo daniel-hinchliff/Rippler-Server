@@ -4,9 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "084376600195d83e8d810a53a5ced989",
-    "content-hash": "5158b62bb7ec3650f45ad38371f6cf9f",
+    "hash": "725fc0ada6892a275bedbab044ea9f9f",
+    "content-hash": "c90a5f14a958776f4a3697012e2b6d5f",
     "packages": [
+        {
+            "name": "cloudinary/cloudinary_php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cloudinary/cloudinary_php.git",
+                "reference": "64a3efeda2cb3b27928cc9a50eb52fcfbfca7507"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/64a3efeda2cb3b27928cc9a50eb52fcfbfca7507",
+                "reference": "64a3efeda2cb3b27928cc9a50eb52fcfbfca7507",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ],
+                "files": [
+                    "src/Helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cloudinary",
+                    "homepage": "https://github.com/cloudinary/cloudinary_php/graphs/contributors"
+                }
+            ],
+            "description": "Cloudinary PHP SDK",
+            "homepage": "https://github.com/cloudinary/cloudinary_php",
+            "keywords": [
+                "cdn",
+                "cloud",
+                "cloudinary",
+                "image management",
+                "sdk"
+            ],
+            "time": "2016-06-22 15:44:06"
+        },
         {
             "name": "container-interop/container-interop",
             "version": "1.1.0",
@@ -357,16 +409,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.19.0",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf"
+                "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5f56ed5212dc509c8dc8caeba2715732abb32dbf",
-                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/55841909e2bcde01b5318c35f2b74f8ecc86e037",
+                "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037",
                 "shasum": ""
             },
             "require": {
@@ -385,8 +437,8 @@
                 "php-console/php-console": "^3.1.3",
                 "phpunit/phpunit": "~4.5",
                 "phpunit/phpunit-mock-objects": "2.3.0",
-                "raven/raven": "^0.13",
                 "ruflin/elastica": ">=0.90 <3.0",
+                "sentry/sentry": "^0.13",
                 "swiftmailer/swiftmailer": "~5.3"
             },
             "suggest": {
@@ -398,9 +450,9 @@
                 "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
                 "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
                 "php-console/php-console": "Allow sending log messages to Google Chrome",
-                "raven/raven": "Allow sending log messages to a Sentry server",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
-                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+                "sentry/sentry": "Allow sending log messages to a Sentry server"
             },
             "type": "library",
             "extra": {
@@ -431,7 +483,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-04-12 18:29:35"
+            "time": "2016-07-02 14:02:10"
         },
         {
             "name": "nesbot/carbon",
@@ -706,16 +758,16 @@
         },
         {
             "name": "robmorgan/phinx",
-            "version": "v0.5.5",
+            "version": "v0.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robmorgan/phinx.git",
-                "reference": "da9950a5e5b9314ebf72ddc6317ed587ce9ba8dc"
+                "reference": "16015e73fd900392e477869d04e068514076c40f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robmorgan/phinx/zipball/da9950a5e5b9314ebf72ddc6317ed587ce9ba8dc",
-                "reference": "da9950a5e5b9314ebf72ddc6317ed587ce9ba8dc",
+                "url": "https://api.github.com/repos/robmorgan/phinx/zipball/16015e73fd900392e477869d04e068514076c40f",
+                "reference": "16015e73fd900392e477869d04e068514076c40f",
                 "shasum": ""
             },
             "require": {
@@ -763,7 +815,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2016-06-17 15:29:02"
+            "time": "2016-04-25 10:45:50"
         },
         {
             "name": "slim/php-view",
@@ -1489,16 +1541,16 @@
         },
         {
             "name": "heroku/heroku-buildpack-php",
-            "version": "v107",
+            "version": "v108",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "118cfbb3e6940bd6c1a953b0c482f458582162a6"
+                "reference": "afca47645064b9d28a6a7d9e470eb76c076d75b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/118cfbb3e6940bd6c1a953b0c482f458582162a6",
-                "reference": "118cfbb3e6940bd6c1a953b0c482f458582162a6",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/afca47645064b9d28a6a7d9e470eb76c076d75b6",
+                "reference": "afca47645064b9d28a6a7d9e470eb76c076d75b6",
                 "shasum": ""
             },
             "bin": [
@@ -1529,7 +1581,7 @@
                 "nginx",
                 "php"
             ],
-            "time": "2016-06-17 22:36:40"
+            "time": "2016-07-08 21:43:10"
         },
         {
             "name": "myclabs/deep-copy",
@@ -2727,7 +2779,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "cloudinary/cloudinary_php": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
