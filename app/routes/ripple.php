@@ -50,7 +50,14 @@ $app->get('/ripple/{latitude}/{longitude}/{radius}', function (ServerRequestInte
 
 $app->post('/ripple', function (ServerRequestInterface $request, ResponseInterface $response) {
 
+    $image_id = null;
+
     $attributes = $request->getParsedBody();
+
+    if (!empty($attributes['image_id']))
+    {
+        $image_id = $attributes['image_id'];
+    }
 
     $ripple = new Ripple();
     $ripple->radius = $attributes['radius'];
@@ -59,6 +66,7 @@ $app->post('/ripple', function (ServerRequestInterface $request, ResponseInterfa
     $ripple->description = $attributes['description'];
     $ripple->creation_time = date('Y-m-d H:i:s');
     $ripple->end_time = date('Y-m-d H:i:s');
+    $ripple->image_id = $image_id;
     $ripple->user_id = 1;
     $ripple->save();
 
