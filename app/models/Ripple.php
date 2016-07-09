@@ -12,5 +12,10 @@ class Ripple extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany('Rippler\Models\Swipe');
     }
+    
+    public function image()
+    {
+        return $this->hasOne('Rippler\Models\Image');
+    }
 }
 
