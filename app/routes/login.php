@@ -32,19 +32,23 @@ $app->get('/login', function (ServerRequestInterface $request, ResponseInterface
     return $response->withJson($user);
 });
 
-$app->get('/token', function (ServerRequestInterface $request, ResponseInterface $response) {
+$app->get('/weblogin', function (ServerRequestInterface $request, ResponseInterface $response) {
 
     $fb = new FacebookClient();
 
-    $login_url = $fb->tokenUrl($request->getUri() . '/print');
+    $get_token_url = $fb->tokenUrl($request->getUri() . '/adapter');
 
-    echo '<a href="' . htmlspecialchars($login_url) . '">Get Token</a>';
+    return $response->withHeader('Location', $get_token_url)->withStatus(302);
 });
 
-$app->get('/token/print', function (ServerRequestInterface $request, ResponseInterface $response) {
+$app->get('/weblogin/adapter', function (ServerRequestInterface $request, ResponseInterface $response) {
 
     $fb = new FacebookClient();
 
-    echo $fb->getAccessTokenFromRedirect();
+    $base_url = $request->getUri()->getBaseUrl();
+    $access_token = $fb->getAccessTokenFromRedirect();
+    $login_url = "$base_url/login?access_token=$access_token";
+
+    return $response->withHeader('Location', $login_url)->withStatus(302);
 });
 
