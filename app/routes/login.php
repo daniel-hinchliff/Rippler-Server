@@ -1,40 +1,17 @@
 <?php
 
 use Rippler\Models\User;
-use Facebook\Authentication\AccessToken;
+use Rippler\Components\FacebookClient;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 $app->get('/login', function (ServerRequestInterface $request, ResponseInterface $response) {
 
-    $app_id = "423432704517027";
-    $app_secret = "b23059f536307fa4ebe8d4a5e6ba7d11";
-
-    $fb = new Facebook\Facebook([
-      'app_id' => $app_id,
-      'app_secret' => $app_secret,
-      'default_graph_version' => 'v2.2',
-    ]);
+    $fb = new FacebookClient();
 
     $access_token_string = $request->getQueryParams()['access_token'];
-
-    $accessToken = new AccessToken($access_token_string);
-
-    $oAuth2Client = $fb->getOAuth2Client();
-    $tokenMetadata = $oAuth2Client->debugToken($accessToken);
-    $tokenMetadata->validateAppId($app_id);
-    $tokenMetadata->validateExpiration();
-
-    if (!$accessToken->isLongLived())
-    {
-        $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
-    }
-
-    $fields = 'email,first_name,last_name,picture,birthday';
-
-    $fb_response = $fb->get("/me?fields=$fields", $accessToken);
-
-    $profile = $fb_response->getGraphNode();
+    $access_token = $fb->getAccessTokenFromString($access_token_string);
+    $profile = $fb->getUserProfile($access_token);
 
     $user = User::where('fbid', '=', $profile->getField('id'))->first();
 
@@ -49,8 +26,24 @@ $app->get('/login', function (ServerRequestInterface $request, ResponseInterface
         $user->save();
     }
 
-    $_SESSION['fb_access_token'] = (string) $accessToken;
+    $_SESSION['fb_access_token'] = (string) $access_token;
 
     return $response->withJson($user);
+});
+
+$app->get('/token', function (ServerRequestInterface $request, ResponseInterface $response) {
+
+    $fb = new FacebookClient();
+
+    $login_url = $fb->tokenUrl($request->getUri() . '/print');
+
+    echo '<a href="' . htmlspecialchars($login_url) . '">Get Token</a>';
+});
+
+$app->get('/token/print', function (ServerRequestInterface $request, ResponseInterface $response) {
+
+    $fb = new FacebookClient();
+
+    echo $fb->getAccessTokenFromRedirect();
 });
 
