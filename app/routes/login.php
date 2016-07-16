@@ -30,7 +30,9 @@ $app->get('/login', function (ServerRequestInterface $request, ResponseInterface
         $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
     }
 
-    $fb_response = $fb->get('/me?fields=email,name,picture,birthday', $accessToken);
+    $fields = 'email,first_name,last_name,picture,birthday';
+
+    $fb_response = $fb->get("/me?fields=$fields", $accessToken);
 
     $profile = $fb_response->getGraphNode();
 
@@ -40,8 +42,9 @@ $app->get('/login', function (ServerRequestInterface $request, ResponseInterface
     {
         $user = new User();
         $user->fbid = $profile->getField('id');
-        $user->name = $profile->getField('name');
         $user->email = $profile->getField('email');
+        $user->last_name = $profile->getField('last_name');
+        $user->first_name = $profile->getField('first_name');
         $user->birthday = $profile->getField('birthday')->format('Y-m-d');
         $user->save();
     }
