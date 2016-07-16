@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 
 $configuration = [
     'settings' => [
-        'displayErrorDetails' => true,
+        'displayErrorDetails' => empty(getenv('DATABASE_URL')),
     ],
 ];
 
