@@ -1,6 +1,6 @@
 <?php
 
-use \Rippler\Models\Ripple;
+use Rippler\Models\Ripple;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Location\Distance\Vincenty;
