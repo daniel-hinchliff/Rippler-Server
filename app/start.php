@@ -22,4 +22,6 @@ require 'database.php';
 require 'routes.php';
 require 'models.php';
 
+session_start();
+
 $app->run();
