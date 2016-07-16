@@ -32,7 +32,7 @@ $app->get('/ripple/{latitude}/{longitude}/{radius}', function (ServerRequestInte
 
     $unswiped_ripples = Ripple::whereDoesntHave('swipes', function ($query) {
         $query->where('user_id', '=', 1);
-    })->take(10)->get();
+    })->get();
 
     foreach ($unswiped_ripples as $ripple)
     {
@@ -42,6 +42,8 @@ $app->get('/ripple/{latitude}/{longitude}/{radius}', function (ServerRequestInte
         if ($distance < $args['radius'] && $distance < $ripple->radius)
         {
             $ripples[]= $ripple;
+
+            if (count($ripples) == 10) break;
         }
     }
       
