@@ -14,8 +14,7 @@ class SwipeTest extends ApiTest
     {
         parent::setUp();
 
-        Swipe::getQuery()->delete();
-        Ripple::getQuery()->delete();
+        $this->clearData();
 
         $oxford_ripple = new Ripple();
         $oxford_ripple->radius = 45;

@@ -32,7 +32,7 @@ $app->get('/ripple/{latitude}/{longitude}/{radius}', function (ServerRequestInte
 
     $unswiped_ripples = Ripple::whereDoesntHave('swipes', function ($query) {
         $query->where('user_id', '=', 1);
-    })->get();
+    })->take(10)->get();
 
     foreach ($unswiped_ripples as $ripple)
     {
