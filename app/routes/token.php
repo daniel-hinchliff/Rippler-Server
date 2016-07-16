@@ -16,7 +16,7 @@ $app->get('/token', function (ServerRequestInterface $request, ResponseInterface
 
     $helper = $fb->getRedirectLoginHelper();
 
-    $url = 'https://rippler-backend.herokuapp.com/token/print';
+    $url = $request->getUri() . '/print';
 
     $loginUrl = $helper->getLoginUrl($url, ['email']);
 
