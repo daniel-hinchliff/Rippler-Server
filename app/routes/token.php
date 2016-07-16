@@ -18,7 +18,7 @@ $app->get('/token', function (ServerRequestInterface $request, ResponseInterface
 
     $url = $request->getUri() . '/print';
 
-    $loginUrl = $helper->getLoginUrl($url, ['email']);
+    $loginUrl = $helper->getLoginUrl($url, ['public_profile,user_birthday']);
 
     echo '<a href="' . htmlspecialchars($loginUrl) . '">Get Token</a>';
 });
