@@ -2,9 +2,17 @@
 
 require('../vendor/autoload.php');
 
+$is_production = !empty(getenv('DATABASE_URL'));
+
+if ($is_production)
+{
+    $_SERVER['HTTPS'] = 'on';
+    $_SERVER['SERVER_PORT'] = '443';
+}
+
 $configuration = [
     'settings' => [
-        'displayErrorDetails' => empty(getenv('DATABASE_URL')),
+        'displayErrorDetails' => !$is_production,
     ],
 ];
 
