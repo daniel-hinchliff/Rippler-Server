@@ -27,6 +27,7 @@ $app->get('/login', function (ServerRequestInterface $request, ResponseInterface
     }
 
     $_SESSION['fb_access_token'] = (string) $access_token;
+    $_SESSION['user_id'] = $user->id;
 
     return $response->withJson($user);
 });

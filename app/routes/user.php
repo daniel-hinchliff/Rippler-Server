@@ -8,3 +8,10 @@ $app->get('/user', function (ServerRequestInterface $request, ResponseInterface 
     return $response->withJson(User::all());
 });
 
+$app->get('/me', function (ServerRequestInterface $request, ResponseInterface $response) {
+
+    if (isset($_SESSION['user_id']))
+    {
+        return $response->withJson(User::find($_SESSION['user_id']));
+    }
+});
