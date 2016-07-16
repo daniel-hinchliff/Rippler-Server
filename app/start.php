@@ -20,7 +20,6 @@ $app->add(function (ServerRequestInterface $request, ResponseInterface $response
 require 'cloudinary.php';
 require 'database.php';
 require 'routes.php';
-require 'models.php';
 
 session_start();
 
