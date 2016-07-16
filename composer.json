@@ -4,7 +4,8 @@
     "robmorgan/phinx": "0.5.4",
     "illuminate/database": "*",
     "mjaschen/phpgeo": "^1.3",
-    "cloudinary/cloudinary_php": "dev-master"
+    "cloudinary/cloudinary_php": "dev-master",
+    "facebook/php-sdk-v4" : "~5.0"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*",
