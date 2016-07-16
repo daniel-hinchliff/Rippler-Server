@@ -1,5 +1,6 @@
 <?php
 
+use Rippler\Models\User;
 use Facebook\Authentication\AccessToken;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -29,20 +30,24 @@ $app->get('/login', function (ServerRequestInterface $request, ResponseInterface
         $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
     }
 
+    $fb_response = $fb->get('/me?fields=email,name,picture,birthday', $accessToken);
+
+    $profile = $fb_response->getGraphNode();
+
+    $user = User::where('fbid', '=', $profile->getField('id'))->first();
+
+    if (empty($user))
+    {
+        $user = new User();
+        $user->fbid = $profile->getField('id');
+        $user->name = $profile->getField('name');
+        $user->email = $profile->getField('email');
+        $user->birthday = $profile->getField('birthday')->format('Y-m-d');
+        $user->save();
+    }
+
     $_SESSION['fb_access_token'] = (string) $accessToken;
 
-    $response = $fb->get('/me?fields=email,name,picture,birthday', $accessToken);
-
-    $profile = $response->getGraphNode();
-
-    $user = new stdClass();
-
-    $user->name = $profile->getField('name');
-    $user->id = $profile->getField('id');
-    $user->email = $profile->getField('email');
-    $user->birthday = $profile->getField('birthday')->format('Y-m-d');
-    $user->picture = "http://graph.facebook.com/$user->id/picture?type=large";
-
-    var_dump($user);
+    return $response->withJson($user);
 });
 
