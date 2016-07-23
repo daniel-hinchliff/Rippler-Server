@@ -23,6 +23,7 @@ require 'cloudinary.php';
 require 'database.php';
 require 'routes.php';
 
+session_name('SESSID');
 session_start();
 
 $app->run();
