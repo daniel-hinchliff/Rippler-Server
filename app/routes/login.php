@@ -52,3 +52,21 @@ $app->get('/weblogin/adapter', function (ServerRequestInterface $request, Respon
     return $response->withHeader('Location', $login_url)->withStatus(302);
 });
 
+$app->get('/test_login', function (ServerRequestInterface $request, ResponseInterface $response) {
+
+    if (!empty(getenv('DATABASE_URL')))
+    {
+        return $response->withStatus(401);
+    }
+
+    $user = new User();
+    $user->fbid = '1243543554';
+    $user->email = 'test@test.com';
+    $user->last_name = 'McDonald';
+    $user->first_name = 'Ronald';
+    $user->birthday = '1985-05-25';
+    $user->save();
+
+    $_SESSION['user_id'] = $user->id;
+});
+

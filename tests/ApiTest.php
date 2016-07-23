@@ -14,8 +14,14 @@ abstract class ApiTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->client = new GuzzleHttp\Client([
-            'base_uri' => 'http://localhost/'
+            'base_uri' => 'http://localhost/',
+            'cookies' => true,
         ]);
+    }
+
+    public function login()
+    {
+        $this->client->get("rippler/test_login");
     }
 
     public function getAllRipples()
