@@ -16,8 +16,8 @@ $app->group('/swipe', function () {
 
         $ripple = new Swipe();
         $ripple->ripple_id = $attributes['ripple_id'];
+        $ripple->user_id = $this->session->userId();
         $ripple->like = $attributes['like'];
-        $ripple->user_id = 1;
         $ripple->save();
     });
 });
