@@ -13,7 +13,7 @@ $app->get('/ripple', function (ServerRequestInterface $request, ResponseInterfac
 $app->get('/ripple/match', function (ServerRequestInterface $request, ResponseInterface $response) {
 
     $matched_ripples = Ripple::whereHas('swipes', function ($query) {
-        $query->where('user_id', '=', 1);
+        $query->where('user_id', '=', $this->session->userId());
         $query->where('like', '=', 1);
     })->get();
 
@@ -31,7 +31,7 @@ $app->get('/ripple/{latitude}/{longitude}/{radius}', function (ServerRequestInte
     $user_location = new Coordinate($args['latitude'], $args['longitude']);
 
     $unswiped_ripples = Ripple::whereDoesntHave('swipes', function ($query) {
-        $query->where('user_id', '=', 1);
+        $query->where('user_id', '=', $this->session->userId());
     })->get();
 
     foreach ($unswiped_ripples as $ripple)
@@ -50,7 +50,7 @@ $app->get('/ripple/{latitude}/{longitude}/{radius}', function (ServerRequestInte
     return $response->withJson($ripples);
 });
 
-$app->post('/ripple', function (ServerRequestInterface $request, ResponseInterface $response) {
+$app->post('/ripple', function (ServerRequestInterface $request, ResponseInterface $response) use ($app) {
 
     $image_id = null;
 
@@ -67,9 +67,9 @@ $app->post('/ripple', function (ServerRequestInterface $request, ResponseInterfa
     $ripple->longitude = $attributes['longitude'];
     $ripple->description = $attributes['description'];
     $ripple->creation_time = date('Y-m-d H:i:s');
+    $ripple->user_id = $this->session->userId();
     $ripple->end_time = date('Y-m-d H:i:s');
     $ripple->image_id = $image_id;
-    $ripple->user_id = 1;
     $ripple->save();
 
     return $response->withJson($ripple);

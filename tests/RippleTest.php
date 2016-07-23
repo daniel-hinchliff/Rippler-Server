@@ -31,6 +31,7 @@ class RippleTest extends ApiTest
         $ripple = json_decode($response->getBody());
         
         $this->assertEquals($image->id, $ripple->image_id);
+        $this->assertEquals($ripple->user_id, 1);
         $this->assertNotEmpty($ripple->image_url);
         $this->assertNotEmpty($ripple->id);
     }

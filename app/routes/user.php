@@ -12,11 +12,7 @@ $app->group('/user', function () {
     });
 
     $this->get('/me', function (ServerRequestInterface $request, ResponseInterface $response) {
-
-        if (isset($_SESSION['user_id']))
-        {
-            return $response->withJson(User::find($_SESSION['user_id']));
-        }
+        return $response->withJson(User::find($this->session->userId()));
     });
 
 })->add(Auth::class);
