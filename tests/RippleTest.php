@@ -57,4 +57,27 @@ class RippleTest extends ApiTest
         $this->assertNotEmpty($ripple->user_id);
         $this->assertNotEmpty($ripple->id);
     }
+
+    public function testNotGetOwnRipple()
+    {
+        $this->clearData();
+
+        $data = array (
+          'radius' => 23,
+          'latitude' => '32',
+          'longitude' => '32',
+          'description' => 'ewfef',
+          'image_path' => 'ewfef',
+          'end_time' => '2016-05-25 00:00:00',
+        );
+
+        $this->login();
+        $response = $this->client->post('rippler/ripple?XDEBUG_SESSION_START=netbeans-xdebug', ['json' => $data]);
+        $ripple = json_decode($response->getBody());
+
+        $ripples = $this->getRipples(32, 32, 100);
+
+        $this->assertEquals(0, count($ripples));
+        $this->assertNotEmpty($ripple->id);
+    }
 }

@@ -35,7 +35,7 @@ $app->group('/ripple', function () {
 
         $unswiped_ripples = Ripple::whereDoesntHave('swipes', function ($query) {
             $query->where('user_id', '=', $this->session->userId());
-        })->get();
+        })->where('user_id', '!=', $this->session->userId())->get();
 
         foreach ($unswiped_ripples as $ripple)
         {
