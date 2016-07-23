@@ -9,7 +9,7 @@ $app->group('/swipe', function () {
 
     $this->get('', function (ServerRequestInterface $request, ResponseInterface $response) {
         return $response->withJson(Swipe::all());
-    })->add(Auth::class);
+    });
 
     $this->post('', function (ServerRequestInterface $request, ResponseInterface $response) {
 
@@ -21,5 +21,6 @@ $app->group('/swipe', function () {
         $ripple->like = $attributes['like'];
         $ripple->save();
     });
-});
+
+})->add(Auth::class);
 

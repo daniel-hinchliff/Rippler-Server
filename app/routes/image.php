@@ -1,6 +1,7 @@
 <?php
 
 use Rippler\Models\Image;
+use Rippler\Components\Auth;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -32,5 +33,6 @@ $app->post('/image', function (ServerRequestInterface $request, ResponseInterfac
     unlink($filepath);
 
     return $response->withJson(['image_id' => $image->id]);
-});
+    
+})->add(Auth::class);
 

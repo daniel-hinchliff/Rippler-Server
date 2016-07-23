@@ -1,84 +1,89 @@
 <?php
 
 use Rippler\Models\Ripple;
+use Rippler\Components\Auth;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Location\Distance\Vincenty;
 use Location\Coordinate;
 
-$app->get('/ripple', function (ServerRequestInterface $request, ResponseInterface $response) {
-    return $response->withJson(Ripple::all());
-});
+$app->group('/ripple', function () {
 
-$app->get('/ripple/match', function (ServerRequestInterface $request, ResponseInterface $response) {
+    $this->get('', function (ServerRequestInterface $request, ResponseInterface $response) {
+        return $response->withJson(Ripple::all());
+    });
 
-    $matched_ripples = Ripple::whereHas('swipes', function ($query) {
-        $query->where('user_id', '=', $this->session->userId());
-        $query->where('like', '=', 1);
-    })->get();
+    $this->get('/match', function (ServerRequestInterface $request, ResponseInterface $response) {
 
-    return $response->withJson($matched_ripples);
-});
+        $matched_ripples = Ripple::whereHas('swipes', function ($query) {
+            $query->where('user_id', '=', $this->session->userId());
+            $query->where('like', '=', 1);
+        })->get();
 
-$app->get('/ripple/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
-     return $response->withJson(Ripple::find($id));
-})->add(Auth::class);
+        return $response->withJson($matched_ripples);
+    });
 
-$app->get('/ripple/{latitude}/{longitude}/{radius}', function (ServerRequestInterface $request, ResponseInterface $response, $args) {
+    $this->get('/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
+         return $response->withJson(Ripple::find($id));
+    });
 
-    $ripples = array();
-    $distance_calculator = new Vincenty();
-    $user_location = new Coordinate($args['latitude'], $args['longitude']);
+    $this->get('/{latitude}/{longitude}/{radius}', function (ServerRequestInterface $request, ResponseInterface $response, $args) {
 
-    $unswiped_ripples = Ripple::whereDoesntHave('swipes', function ($query) {
-        $query->where('user_id', '=', $this->session->userId());
-    })->get();
+        $ripples = array();
+        $distance_calculator = new Vincenty();
+        $user_location = new Coordinate($args['latitude'], $args['longitude']);
 
-    foreach ($unswiped_ripples as $ripple)
-    {
-        $ripple_location = new Coordinate($ripple->latitude, $ripple->longitude);
-        $distance = $distance_calculator->getDistance($user_location, $ripple_location) / 1000;
+        $unswiped_ripples = Ripple::whereDoesntHave('swipes', function ($query) {
+            $query->where('user_id', '=', $this->session->userId());
+        })->get();
 
-        if ($distance < $args['radius'] && $distance < $ripple->radius)
+        foreach ($unswiped_ripples as $ripple)
         {
-            $ripples[]= $ripple;
+            $ripple_location = new Coordinate($ripple->latitude, $ripple->longitude);
+            $distance = $distance_calculator->getDistance($user_location, $ripple_location) / 1000;
 
-            if (count($ripples) == 10) break;
+            if ($distance < $args['radius'] && $distance < $ripple->radius)
+            {
+                $ripples[]= $ripple;
+
+                if (count($ripples) == 10) break;
+            }
         }
-    }
-      
-    return $response->withJson($ripples);
-});
 
-$app->post('/ripple', function (ServerRequestInterface $request, ResponseInterface $response) use ($app) {
+        return $response->withJson($ripples);
+    });
 
-    $image_id = null;
+    $this->post('', function (ServerRequestInterface $request, ResponseInterface $response) {
 
-    $attributes = $request->getParsedBody();
+        $image_id = null;
 
-    if (!empty($attributes['image_id']))
-    {
-        $image_id = $attributes['image_id'];
-    }
+        $attributes = $request->getParsedBody();
 
-    $ripple = new Ripple();
-    $ripple->radius = $attributes['radius'];
-    $ripple->latitude = $attributes['latitude'];
-    $ripple->longitude = $attributes['longitude'];
-    $ripple->description = $attributes['description'];
-    $ripple->creation_time = date('Y-m-d H:i:s');
-    $ripple->user_id = $this->session->userId();
-    $ripple->end_time = date('Y-m-d H:i:s');
-    $ripple->image_id = $image_id;
-    $ripple->save();
+        if (!empty($attributes['image_id']))
+        {
+            $image_id = $attributes['image_id'];
+        }
 
-    return $response->withJson($ripple);
-});
+        $ripple = new Ripple();
+        $ripple->radius = $attributes['radius'];
+        $ripple->latitude = $attributes['latitude'];
+        $ripple->longitude = $attributes['longitude'];
+        $ripple->description = $attributes['description'];
+        $ripple->creation_time = date('Y-m-d H:i:s');
+        $ripple->user_id = $this->session->userId();
+        $ripple->end_time = date('Y-m-d H:i:s');
+        $ripple->image_id = $image_id;
+        $ripple->save();
 
-$app->delete('/ripple', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
-     Ripple::getQuery()->delete();
-})->add(Auth::class);
+        return $response->withJson($ripple);
+    });
 
-$app->delete('/ripple/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
-     Ripple::destroy($id);
+    $this->delete('', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
+         Ripple::getQuery()->delete();
+    });
+
+    $this->delete('/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
+         Ripple::destroy($id);
+    });
+
 })->add(Auth::class);

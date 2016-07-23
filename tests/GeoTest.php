@@ -36,6 +36,8 @@ class GeoTest extends ApiTest
         $oxford_ripple->end_time = '2016-05-25 00:00:00';
         $oxford_ripple->user_id = 1;
         $oxford_ripple->save();
+
+        $this->login();
     }
 
     public function testListResponseBoth()

@@ -4,6 +4,7 @@ class PagingTest extends ApiTest
 {
     public function testPaging()
     {
+        $this->login();
         $this->clearData();
         $this->createMultipleRipples(['longitude' => 20, 'latitude' => 20], 12);
 
@@ -13,6 +14,7 @@ class PagingTest extends ApiTest
 
     public function testInterleavedLocationMatchingPaging()
     {
+        $this->login();
         $this->clearData();
         $this->createMultipleRipples(['longitude' => 20, 'latitude' => 20], 7);
         $this->createMultipleRipples(['longitude' => 40, 'latitude' => 40], 7);
