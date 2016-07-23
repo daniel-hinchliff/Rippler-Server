@@ -26,8 +26,8 @@ $app->get('/login', function (ServerRequestInterface $request, ResponseInterface
         $user->save();
     }
 
-    $_SESSION['fb_access_token'] = (string) $access_token;
-    $_SESSION['user_id'] = $user->id;
+    $this->session->start($user->id);
+    $this->session->set('fb_access_token', (string) $access_token);
 
     return $response->withJson(['session_id' => $this->session->id()]);
 });
@@ -67,6 +67,6 @@ $app->get('/test_login', function (ServerRequestInterface $request, ResponseInte
     $user->birthday = '1985-05-25';
     $user->save();
 
-    $_SESSION['user_id'] = $user->id;
+    $this->session->start($user->id);
 });
 
