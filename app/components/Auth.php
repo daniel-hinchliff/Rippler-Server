@@ -4,6 +4,13 @@ namespace Rippler\Components;
 
 class Auth
 {
+    protected $session;
+
+    public function __construct($container)
+    {
+        $this->session = $container->session;
+    }
+
     /**
      * @param  \Psr\Http\Message\ServerRequestInterface $request  PSR7 request
      * @param  \Psr\Http\Message\ResponseInterface      $response PSR7 response
@@ -13,13 +20,13 @@ class Auth
     
     public function __invoke($request, $response, $next)
     {
-        if (isset($_SESSION['user_id']))
+        if (empty($this->session->get('user_id')))
         {
-            return $next($request, $response);
+            return $response->withStatus(401);
         }
         else
         {
-            return $response->withStatus(401);
+            return $next($request, $response);
         }
     }
 }
