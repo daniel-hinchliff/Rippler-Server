@@ -22,7 +22,7 @@ class FacebookClient
     {
         $helper = $this->fb->getRedirectLoginHelper();
 
-        return $helper->getLoginUrl($url, ['public_profile,user_birthday']);
+        return $helper->getLoginUrl($url, ['public_profile,user_birthday,email']);
     }
 
     public function getAccessTokenFromRedirect()
