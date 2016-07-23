@@ -39,6 +39,8 @@ class SwipeTest extends ApiTest
         $swipe_not_like->save();
 
         $this->ripple_id = $oxford_ripple->id;
+
+        $this->login();
     }
 
     public function swipeRipple($ripple_id, $like)

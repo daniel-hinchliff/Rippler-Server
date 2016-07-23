@@ -1,6 +1,7 @@
 <?php
 
 use Rippler\Models\Swipe;
+use Rippler\Components\Auth;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -8,7 +9,7 @@ $app->group('/swipe', function () {
 
     $this->get('', function (ServerRequestInterface $request, ResponseInterface $response) {
         return $response->withJson(Swipe::all());
-    });
+    })->add(Auth::class);
 
     $this->post('', function (ServerRequestInterface $request, ResponseInterface $response) {
 
