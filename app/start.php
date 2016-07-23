@@ -16,8 +16,13 @@ $configuration = [
     ],
 ];
 
-$c = new \Slim\Container($configuration);
-$app = new \Slim\App($c);
+$container = new \Slim\Container($configuration);
+
+$container['session'] = function () {
+  return new \Rippler\Components\Session();
+};
+
+$app = new \Slim\App($container);
 
 require 'cloudinary.php';
 require 'database.php';
