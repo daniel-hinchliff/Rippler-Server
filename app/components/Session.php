@@ -23,4 +23,9 @@ class Session
     {
         return $this->get('user_id', 1);
     }
+
+    public function id()
+    {
+        return session_id();
+    }
 }
