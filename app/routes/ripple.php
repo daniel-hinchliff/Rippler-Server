@@ -22,7 +22,7 @@ $app->get('/ripple/match', function (ServerRequestInterface $request, ResponseIn
 
 $app->get('/ripple/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
      return $response->withJson(Ripple::find($id));
-});
+})->add(Auth::class);
 
 $app->get('/ripple/{latitude}/{longitude}/{radius}', function (ServerRequestInterface $request, ResponseInterface $response, $args) {
 
@@ -77,8 +77,8 @@ $app->post('/ripple', function (ServerRequestInterface $request, ResponseInterfa
 
 $app->delete('/ripple', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
      Ripple::getQuery()->delete();
-});
+})->add(Auth::class);
 
 $app->delete('/ripple/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
      Ripple::destroy($id);
-});
+})->add(Auth::class);
