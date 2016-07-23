@@ -1,5 +1,7 @@
 set -e 
 
+git diff --exit-code
+
 ./run_tests.sh
 
 git push heroku master
