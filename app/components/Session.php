@@ -30,7 +30,7 @@ class Session
 
     public function userId()
     {
-        return $this->get('user_id', 1);
+        return $this->get('user_id');
     }
 
     public function id()
