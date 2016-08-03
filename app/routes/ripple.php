@@ -23,8 +23,8 @@ $app->group('/ripple', function () {
         return $response->withJson($matched_ripples);
     });
 
-    $this->get('/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
-         return $response->withJson(Ripple::find($id));
+    $this->get('/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $args) {
+         return $response->withJson(Ripple::find($args['id']));
     });
 
     $this->get('/{latitude}/{longitude}/{radius}', function (ServerRequestInterface $request, ResponseInterface $response, $args) {
@@ -78,12 +78,12 @@ $app->group('/ripple', function () {
         return $response->withJson($ripple);
     });
 
-    $this->delete('', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
+    $this->delete('', function (ServerRequestInterface $request, ResponseInterface $response) {
          Ripple::getQuery()->delete();
     });
 
-    $this->delete('/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $id) {
-         Ripple::destroy($id);
+    $this->delete('/{id}', function (ServerRequestInterface $request, ResponseInterface $response, $args) {
+         Ripple::destroy($args['id']);
     });
 
 })->add(Auth::class);
