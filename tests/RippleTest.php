@@ -29,7 +29,7 @@ class RippleTest extends ApiTest
 
         $this->login();
         $response = $this->client->post('rippler/ripple?XDEBUG_SESSION_START=netbeans-xdebug', ['json' => $data]);
-        $ripple = json_decode($response->getBody());
+        $ripple = json_decode($response->getBody())->result;
         
         $this->assertEquals($image->id, $ripple->image_id);
         $this->assertNotEmpty($ripple->image_url);
@@ -50,7 +50,7 @@ class RippleTest extends ApiTest
 
         $this->login();
         $response = $this->client->post('rippler/ripple?XDEBUG_SESSION_START=netbeans-xdebug', ['json' => $data]);
-        $ripple = json_decode($response->getBody());
+        $ripple = json_decode($response->getBody())->result;
 
         $this->assertEmpty($ripple->image_id);
         $this->assertEmpty($ripple->image_url);
@@ -73,7 +73,7 @@ class RippleTest extends ApiTest
 
         $this->login();
         $response = $this->client->post('rippler/ripple?XDEBUG_SESSION_START=netbeans-xdebug', ['json' => $data]);
-        $ripple = json_decode($response->getBody());
+        $ripple = json_decode($response->getBody())->result;
 
         $ripples = $this->getRipples(32, 32, 100);
 

@@ -28,21 +28,21 @@ abstract class ApiTest extends PHPUnit_Framework_TestCase
     {
         $response = $this->client->get("rippler/ripple");
 
-        return json_decode($response->getBody());
+        return json_decode($response->getBody())->result;
     }
 
     public function getRipples($latitude, $longitude, $radius)
     {
         $response = $this->client->get("rippler/ripple/$latitude/$longitude/$radius");
 
-        return json_decode($response->getBody());
+        return json_decode($response->getBody())->result;
     }
 
     public function getMatches()
     {
         $response = $this->client->get("rippler/ripple/match");
 
-        return json_decode($response->getBody());
+        return json_decode($response->getBody())->result;
     }
 
     public function createRipple($data)

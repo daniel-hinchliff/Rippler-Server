@@ -19,7 +19,13 @@ $configuration = [
 $container = new \Slim\Container($configuration);
 
 $container['session'] = function () {
-  return new \Rippler\Components\Session();
+    return new \Rippler\Components\Session();
+};
+
+$container['response'] = function ($container) {
+    $headers = new Slim\Http\Headers(['Content-Type' => 'text/html; charset=UTF-8']);
+    $response = new Rippler\Components\Response(200, $headers);
+    return $response->withProtocolVersion($container->get('settings')['httpVersion']);
 };
 
 $app = new \Slim\App($container);
