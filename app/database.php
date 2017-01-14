@@ -8,7 +8,7 @@ $dbopts = parse_url($db_url ?: "postgres://postgres:root@localhost:5432/rippler"
 
 $settings = array(
     "driver" => "pgsql",
-    "database" => ltrim($dbopts["path"],'/'),
+    "database" => ltrim($dbopts["path"], '/'),
     "host" => $dbopts["host"],
     "username" => $dbopts["user"],
     "password" => $dbopts["pass"],
