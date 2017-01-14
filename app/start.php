@@ -34,7 +34,6 @@ $container['response'] = function ($container) {
 
 $app = new \Slim\App($container);
 
-require 'cloudinary.php';
 require 'database.php';
 require 'routes.php';
 
