@@ -5,15 +5,12 @@ namespace Rippler\Components;
 class FacebookClient
 {
     protected $fb;
-    
-    const appId = "423432704517027";
-    const appSecret = "b23059f536307fa4ebe8d4a5e6ba7d11";
 
     public function __construct()
     {
         $this->fb = new \Facebook\Facebook([
-          'app_id' => self::appId,
-          'app_secret' => self::appSecret,
+          'app_id' => getenv('FACEBOOK_APP_ID'),
+          'app_secret' => getenv('FACEBOOK_APP_SECRET'),
           'default_graph_version' => 'v2.2',
         ]);
     }
@@ -38,7 +35,7 @@ class FacebookClient
 
         $oauth_client = $this->fb->getOAuth2Client();
         $tokenMetadata = $oauth_client->debugToken($access_token);
-        $tokenMetadata->validateAppId(self::appId);
+        $tokenMetadata->validateAppId(getenv('FACEBOOK_APP_ID'));
         $tokenMetadata->validateExpiration();
 
         if (!$access_token->isLongLived())

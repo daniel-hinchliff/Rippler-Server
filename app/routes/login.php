@@ -54,7 +54,7 @@ $app->get('/weblogin/adapter', function (ServerRequestInterface $request, Respon
 
 $app->get('/test_login', function (ServerRequestInterface $request, ResponseInterface $response) {
 
-    if (!empty(getenv('DATABASE_URL')))
+    if (!getenv('ALLOW_TEST_LOGIN'))
     {
         return $response->withStatus(401);
     }

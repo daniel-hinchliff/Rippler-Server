@@ -2,6 +2,8 @@
 
 require('../vendor/autoload.php');
 
+(new Dotenv\Dotenv(dirname(__DIR__)))->load();
+
 $is_production = !empty(getenv('DATABASE_URL'));
 
 if ($is_production)
