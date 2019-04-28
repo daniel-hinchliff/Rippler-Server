@@ -2,12 +2,13 @@
 
 use \Rippler\Models\Swipe;
 use \Rippler\Models\Ripple;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @property GuzzleHttp\Client $client
  */
 
-abstract class ApiTest extends PHPUnit_Framework_TestCase
+abstract class ApiTest extends TestCase
 {
     protected $client;
 
