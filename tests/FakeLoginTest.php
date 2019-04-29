@@ -6,7 +6,7 @@ class FakeLoginTest extends ApiTest
     {
         $this->login();
 
-        $response = $this->client->get('rippler/user/me?XDEBUG_SESSION_START=netbeans-xdebug');
+        $response = $this->client->get('user/me');
 
         $user = json_decode($response->getBody())->result;
         

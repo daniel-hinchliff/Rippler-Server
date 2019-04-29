@@ -2,12 +2,12 @@
 
 class RippleTest extends ApiTest
 {
-    const JsonFormat = 'application/json;charset=utf-8';
+    const JsonFormat = 'application/json';
 
     public function testListResponse()
     {
         $this->login();
-        $response = $this->client->get('rippler/ripple');
+        $response = $this->client->get('ripple');
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(self::JsonFormat, $response->getHeader('Content-Type')[0]);
     }
@@ -28,7 +28,7 @@ class RippleTest extends ApiTest
         );
 
         $this->login();
-        $response = $this->client->post('rippler/ripple?XDEBUG_SESSION_START=netbeans-xdebug', ['json' => $data]);
+        $response = $this->client->post('ripple', ['json' => $data]);
         $ripple = json_decode($response->getBody())->result;
         
         $this->assertEquals($image->id, $ripple->image_id);
@@ -49,7 +49,7 @@ class RippleTest extends ApiTest
         );
 
         $this->login();
-        $response = $this->client->post('rippler/ripple?XDEBUG_SESSION_START=netbeans-xdebug', ['json' => $data]);
+        $response = $this->client->post('ripple', ['json' => $data]);
         $ripple = json_decode($response->getBody())->result;
 
         $this->assertEmpty($ripple->image_id);
@@ -72,7 +72,7 @@ class RippleTest extends ApiTest
         );
 
         $this->login();
-        $response = $this->client->post('rippler/ripple?XDEBUG_SESSION_START=netbeans-xdebug', ['json' => $data]);
+        $response = $this->client->post('ripple', ['json' => $data]);
         $ripple = json_decode($response->getBody())->result;
 
         $ripples = $this->getRipples(32, 32, 100);

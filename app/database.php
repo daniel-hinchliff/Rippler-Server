@@ -4,7 +4,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 $db_url = getenv('DATABASE_URL');
 
-$dbopts = parse_url($db_url ?: "postgres://postgres:root@localhost:5432/rippler");
+$dbopts = parse_url($db_url ?: "postgres://postgres:root@db:5432/rippler");
 
 $settings = array(
     "driver" => "pgsql",

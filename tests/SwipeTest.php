@@ -50,7 +50,7 @@ class SwipeTest extends ApiTest
           'ripple_id' => $ripple_id,
         );
 
-        $this->client->post('rippler/swipe?XDEBUG_SESSION_START=netbeans-xdebug', ['json' => $data]);
+        $this->client->post('swipe', ['json' => $data]);
     }
 
     public function testNotGetUnswipedRipple()

@@ -22,28 +22,28 @@ abstract class ApiTest extends TestCase
 
     public function login()
     {
-        $this->client->get("rippler/test_login");
+        $this->client->get("test_login");
     }
 
     public function getAllRipples()
     {
-        $response = $this->client->get("rippler/ripple");
+        $response = $this->client->get("ripple");
 
-        return json_decode($response->getBody())->result;
+        return (array) json_decode($response->getBody())->result;
     }
 
     public function getRipples($latitude, $longitude, $radius)
     {
-        $response = $this->client->get("rippler/ripple/$latitude/$longitude/$radius");
+        $response = $this->client->get("ripple/$latitude/$longitude/$radius");
 
-        return json_decode($response->getBody())->result;
+        return (array) json_decode($response->getBody())->result;
     }
 
     public function getMatches()
     {
-        $response = $this->client->get("rippler/ripple/match");
+        $response = $this->client->get("ripple/match");
 
-        return json_decode($response->getBody())->result;
+        return (array) json_decode($response->getBody())->result;
     }
 
     public function createRipple($data)

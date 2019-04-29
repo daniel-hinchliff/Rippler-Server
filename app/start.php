@@ -9,10 +9,6 @@ if ($is_production)
     $_SERVER['HTTPS'] = 'on';
     $_SERVER['SERVER_PORT'] = '443';
 }
-else
-{
-    (new Dotenv\Dotenv(dirname(__DIR__)))->load();
-}
 
 $configuration = [
     'settings' => [
